@@ -1,6 +1,7 @@
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (formData) => {
     const value = Object.fromEntries(formData).searchField;
+    if (!value) return console.log("Enter some text");
     onSubmit(value);
   };
 
@@ -10,8 +11,8 @@ const SearchBar = ({ onSubmit }) => {
         <input
           name="searchField"
           type="text"
-          autocomplete="off"
-          autofocus
+          autoComplete="off"
+          autoFocus
           placeholder="Search images and photos"
         />
         <button type="submit">Search</button>

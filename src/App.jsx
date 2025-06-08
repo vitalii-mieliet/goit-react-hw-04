@@ -37,10 +37,8 @@ function App() {
 
         setImages((prev) => [...prev, ...photos]);
         setHasMorePhotos(page < total_pages);
-      } catch {
-        setError(
-          "Failed to load images. Please check your connection or try again later."
-        );
+      } catch (error) {
+        setError(error);
       } finally {
         setIsLoading(false);
       }
@@ -76,7 +74,14 @@ function App() {
       )}
       {isLoading && <Loader />}
       {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
-      {error && <ErrorMessage message={error} />}
+      {error && (
+        <ErrorMessage
+          message={
+            "Failed to load images. Please check your connection or try again later."
+          }
+          error={error}
+        />
+      )}
       {isEmpty && <NoResultsMessage query={query} />}
       <ImageModal
         modalIsOpen={modalIsOpen}

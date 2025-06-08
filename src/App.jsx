@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./service/unsplashAPI";
 import "./App.css";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 function App() {
   const [query, setQuery] = useState("cats");
@@ -8,7 +9,7 @@ function App() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    if (!query) return;
+    if (query === "") return;
     const fetchImages = async () => {
       const images = await fetchData(query, page);
       setImages(images);
@@ -19,7 +20,7 @@ function App() {
   console.log(images);
   return (
     <>
-      <h1>This website is under development</h1>
+      <SearchBar onSubmit={setQuery} />
     </>
   );
 }

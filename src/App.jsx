@@ -7,6 +7,7 @@ import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
+import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -76,6 +77,7 @@ function App() {
       {isLoading && <Loader />}
       {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
       {error && <ErrorMessage message={error} />}
+      {isEmpty && <NoResultsMessage query={query} />}
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={handleCloseModal}

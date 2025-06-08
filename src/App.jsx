@@ -5,12 +5,14 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 function App() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState("1");
   const [images, setImages] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [error, setError] = useState("");
   const [hasMorePhotos, setHasMorePhotos] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,8 +33,10 @@ function App() {
 
         setImages((prev) => [...prev, ...photos]);
         setHasMorePhotos(page < total_pages);
-      } catch (error) {
-        console.log(error);
+      } catch {
+        setError(
+          "Failed to load images. Please check your connection or try again later."
+        );
       } finally {
         setIsLoading(false);
       }
@@ -57,6 +61,7 @@ function App() {
       {images.length > 0 && <ImageGallery images={images} />}
       {isLoading && <Loader />}
       {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
+      {error && <ErrorMessage message={error} />}
     </>
   );
 }

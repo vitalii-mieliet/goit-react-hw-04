@@ -4,6 +4,7 @@ import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -11,11 +12,12 @@ function App() {
   const [images, setImages] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [hasMorePhotos, setHasMorePhotos] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!query) return;
-
     const getPhotos = async () => {
+      setIsLoading(true);
       try {
         const {
           results: photos,
@@ -31,6 +33,8 @@ function App() {
         setHasMorePhotos(page < total_pages);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -51,6 +55,7 @@ function App() {
     <>
       <SearchBar onSubmit={handleFormSubmit} />
       {images.length > 0 && <ImageGallery images={images} />}
+      {isLoading && <Loader />}
       {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
     </>
   );

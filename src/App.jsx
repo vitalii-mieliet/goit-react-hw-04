@@ -2,25 +2,56 @@ import { useEffect, useState } from "react";
 import { fetchData } from "./service/unsplashAPI";
 import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 function App() {
-  const [query, setQuery] = useState("cats");
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState("1");
   const [images, setImages] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [hasMorePhotos, setHasMorePhotos] = useState(false);
 
   useEffect(() => {
-    if (query === "") return;
-    const fetchImages = async () => {
-      const images = await fetchData(query, page);
-      setImages(images);
+    if (!query) return;
+
+    const getPhotos = async () => {
+      try {
+        const {
+          results: photos,
+          total,
+          total_pages,
+        } = await fetchData(query, page);
+        if (total === 0) {
+          setIsEmpty(true);
+          return;
+        }
+
+        setImages((prev) => [...prev, ...photos]);
+        setHasMorePhotos(page < total_pages);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    fetchImages();
+
+    getPhotos();
   }, [query, page]);
 
-  console.log(images);
+  const handleFormSubmit = (query) => {
+    setQuery(query);
+    setPage(1);
+    setImages([]);
+  };
+
+  const handleLoadMore = () => {
+    setPage(page + 1);
+  };
+
   return (
     <>
-      <SearchBar onSubmit={setQuery} />
+      <SearchBar onSubmit={handleFormSubmit} />
+      {images.length > 0 && <ImageGallery images={images} />}
+      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
     </>
   );
 }

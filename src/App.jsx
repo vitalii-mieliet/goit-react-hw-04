@@ -94,6 +94,7 @@ function App() {
       {images.length > 0 && (
         <ImageGallery images={images} openModal={handleOpenModal} />
       )}
+      {isLoading && <Loader />}
 
       {error && (
         <ErrorMessage

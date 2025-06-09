@@ -12,6 +12,7 @@ import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
 import "./App.css";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import SkeletonGallery from "./components/SkeletonGallery/SkeletonGallery";
+import WelcomeMessage from "./components/WelcomeMessage/WelcomeMessage";
 
 function App() {
   const [searchParams, setSearchParams] = useState({ query: "", page: 1 });
@@ -91,6 +92,7 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleFormSubmit} />
+      {!searchParams.query && images.length === 0 && <WelcomeMessage />}
       <InfiniteScroll
         dataLength={images.length}
         next={handleLoadMore}
@@ -106,11 +108,6 @@ function App() {
       >
         <ImageGallery images={images} openModal={handleOpenModal} />
       </InfiniteScroll>
-
-      {/* {images.length > 0 && (
-        <ImageGallery images={images} openModal={handleOpenModal} />
-      )}
-      {isLoading && <Loader />} */}
 
       {error && (
         <ErrorMessage

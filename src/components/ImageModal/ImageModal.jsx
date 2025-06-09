@@ -1,27 +1,26 @@
 import Modal from "react-modal";
+import { IoClose } from "react-icons/io5";
+import styles from "./ImageModal.module.css";
 
 const customStyles = {
   overlay: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    zIndex: "999999",
-    backgroundColor: "rgba(45, 45, 45, 0.3)",
-    backdropFilter: "blur(5px)",
+    zIndex: 9999,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backdropFilter: "blur(4px)",
   },
   content: {
-    display: "flex",
     position: "relative",
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: "0",
     padding: 0,
-    width: "800px",
-    height: "fit-content",
-    opacity: 1,
-    backgroundColor: "black",
-    color: "white",
+    border: "none",
+    background: "transparent",
     inset: 0,
+    overflow: "visible",
   },
 };
 
@@ -29,16 +28,17 @@ Modal.setAppElement("#root");
 
 const ImageModal = ({ modalIsOpen, closeModal, image: { src, alt } }) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Hello</h2>
-        <button onClick={closeModal}>close</button>
-        <img src={src} alt={alt} />
+        <button className={styles.closeBtn} onClick={closeModal}>
+          <IoClose size={24} />
+        </button>
+        <img className={styles.image} src={src} alt={alt} />
       </Modal>
     </div>
   );

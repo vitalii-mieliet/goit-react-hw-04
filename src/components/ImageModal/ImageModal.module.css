@@ -1,0 +1,43 @@
+.wrapper {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.image {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+  z-index: 1;
+  position: relative;
+}
+
+.image:hover {
+  transform: scale(1.01);
+}
+
+.closeBtn {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  z-index: 2;
+  background-color: #ffffffcc;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.closeBtn:hover {
+  background-color: #ffffff;
+}

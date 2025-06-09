@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchData } from "./service/unsplashAPI";
 
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -63,7 +64,7 @@ function App() {
     setSearchParams({ query, page: 1 });
     setImages([]);
     setIsEmpty(false);
-    setHasMorePhotos(false);
+    setHasMorePhotos(true);
     setError("");
   };
 
@@ -91,10 +92,20 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleFormSubmit} />
-      {images.length > 0 && (
+      <InfiniteScroll
+        dataLength={images.length}
+        next={handleLoadMore}
+        hasMore={hasMorePhotos}
+        loader={isLoading && <Loader />}
+        endMessage={<p style={{ textAlign: "center" }}>Усе переглянуто 🎉</p>}
+      >
+        <ImageGallery images={images} openModal={handleOpenModal} />
+      </InfiniteScroll>
+
+      {/* {images.length > 0 && (
         <ImageGallery images={images} openModal={handleOpenModal} />
       )}
-      {isLoading && <Loader />}
+      {isLoading && <Loader />} */}
 
       {error && (
         <ErrorMessage

@@ -8,6 +8,8 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
+import Section from "./components/Section/Section";
+import Container from "./components/Container/Container";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -51,6 +53,9 @@ function App() {
     setQuery(query);
     setPage(1);
     setImages([]);
+    setIsEmpty(false);
+    setHasMorePhotos(false);
+    setError("");
   };
 
   const handleLoadMore = () => {
@@ -68,26 +73,30 @@ function App() {
 
   return (
     <>
-      <SearchBar onSubmit={handleFormSubmit} />
-      {images.length > 0 && (
-        <ImageGallery images={images} openModal={handleOpenModal} />
-      )}
-      {isLoading && <Loader />}
-      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
-      {error && (
-        <ErrorMessage
-          message={
-            "Failed to load images. Please check your connection or try again later."
-          }
-          error={error}
-        />
-      )}
-      {isEmpty && <NoResultsMessage query={query} />}
-      <ImageModal
-        modalIsOpen={modalIsOpen}
-        closeModal={handleCloseModal}
-        image={modalImage}
-      />
+      <Section>
+        <Container>
+          <SearchBar onSubmit={handleFormSubmit} />
+          {images.length > 0 && (
+            <ImageGallery images={images} openModal={handleOpenModal} />
+          )}
+          {isLoading && <Loader />}
+          {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
+          {error && (
+            <ErrorMessage
+              message={
+                "Failed to load images. Please check your connection or try again later."
+              }
+              error={error}
+            />
+          )}
+          {isEmpty && <NoResultsMessage query={query} />}
+          <ImageModal
+            modalIsOpen={modalIsOpen}
+            closeModal={handleCloseModal}
+            image={modalImage}
+          />
+        </Container>
+      </Section>
     </>
   );
 }

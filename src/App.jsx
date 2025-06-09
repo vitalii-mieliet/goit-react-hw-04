@@ -11,6 +11,7 @@ import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
 
 import "./App.css";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import SkeletonGallery from "./components/SkeletonGallery/SkeletonGallery";
 
 function App() {
   const [searchParams, setSearchParams] = useState({ query: "", page: 1 });
@@ -96,7 +97,7 @@ function App() {
         dataLength={images.length}
         next={handleLoadMore}
         hasMore={hasMorePhotos}
-        loader={isLoading && <Loader />}
+        loader={isLoading && <SkeletonGallery />}
         endMessage={<p style={{ textAlign: "center" }}>Усе переглянуто 🎉</p>}
       >
         <ImageGallery images={images} openModal={handleOpenModal} />
@@ -116,7 +117,7 @@ function App() {
         />
       )}
       {isEmpty && <NoResultsMessage query={searchParams.query} />}
-      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
+
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={handleCloseModal}

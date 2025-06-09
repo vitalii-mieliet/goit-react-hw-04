@@ -1,0 +1,28 @@
+.header {
+  background-color: #1022e3;
+  padding: 8px;
+}
+
+.form {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.input {
+  padding: 4px;
+  width: 100%;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+}

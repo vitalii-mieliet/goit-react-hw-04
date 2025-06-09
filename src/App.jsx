@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./service/unsplashAPI";
-import "./App.css";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
@@ -8,8 +7,7 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
-import Section from "./components/Section/Section";
-import Container from "./components/Container/Container";
+import "./App.css";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -73,30 +71,26 @@ function App() {
 
   return (
     <>
-      <Section>
-        <Container>
-          <SearchBar onSubmit={handleFormSubmit} />
-          {images.length > 0 && (
-            <ImageGallery images={images} openModal={handleOpenModal} />
-          )}
-          {isLoading && <Loader />}
-          {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
-          {error && (
-            <ErrorMessage
-              message={
-                "Failed to load images. Please check your connection or try again later."
-              }
-              error={error}
-            />
-          )}
-          {isEmpty && <NoResultsMessage query={query} />}
-          <ImageModal
-            modalIsOpen={modalIsOpen}
-            closeModal={handleCloseModal}
-            image={modalImage}
-          />
-        </Container>
-      </Section>
+      <SearchBar onSubmit={handleFormSubmit} />
+      {images.length > 0 && (
+        <ImageGallery images={images} openModal={handleOpenModal} />
+      )}
+      {isLoading && <Loader />}
+      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
+      {error && (
+        <ErrorMessage
+          message={
+            "Failed to load images. Please check your connection or try again later."
+          }
+          error={error}
+        />
+      )}
+      {isEmpty && <NoResultsMessage query={query} />}
+      <ImageModal
+        modalIsOpen={modalIsOpen}
+        closeModal={handleCloseModal}
+        image={modalImage}
+      />
     </>
   );
 }

@@ -1,3 +1,7 @@
+import { IoSearchSharp } from "react-icons/io5";
+
+import css from "./SearchBar.module.css";
+
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (formData) => {
     const value = Object.fromEntries(formData).searchField;
@@ -6,16 +10,19 @@ const SearchBar = ({ onSubmit }) => {
   };
 
   return (
-    <header>
-      <form action={handleSubmit}>
+    <header className={css.header}>
+      <form className={css.form} action={handleSubmit}>
         <input
+          className={css.input}
           name="searchField"
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
         />
-        <button type="submit">Search</button>
+        <button className={css.button} type="submit">
+          <IoSearchSharp className={css.icon} />
+        </button>
       </form>
     </header>
   );

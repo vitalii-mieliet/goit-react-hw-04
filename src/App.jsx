@@ -20,6 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalImage, setModalImage] = useState({});
+  const [isModalImageLoading, setIsModalImageLoading] = useState(false);
 
   useEffect(() => {
     if (!query) return;
@@ -63,9 +64,14 @@ function App() {
 
   const handleOpenModal = (image) => {
     setModalImage(image);
-
+    setIsModalImageLoading(true);
     setModalIsOpen(true);
   };
+
+  const handleImageLoad = () => {
+    setIsModalImageLoading(false);
+  };
+
   const handleCloseModal = () => {
     setModalIsOpen(false);
   };
@@ -76,7 +82,7 @@ function App() {
       {images.length > 0 && (
         <ImageGallery images={images} openModal={handleOpenModal} />
       )}
-      {isLoading && <Loader />}
+
       {error && (
         <ErrorMessage
           message={
@@ -97,7 +103,10 @@ function App() {
         modalIsOpen={modalIsOpen}
         closeModal={handleCloseModal}
         image={modalImage}
+        onImageLoad={handleImageLoad}
+        isLoading={isModalImageLoading}
       />
+      {isModalImageLoading && <Loader />}
     </>
   );
 }

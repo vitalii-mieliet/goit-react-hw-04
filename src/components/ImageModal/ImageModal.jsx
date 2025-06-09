@@ -26,19 +26,33 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-const ImageModal = ({ modalIsOpen, closeModal, image: { src, alt } }) => {
+const ImageModal = ({
+  isLoading,
+  modalIsOpen,
+  onImageLoad,
+  closeModal,
+  image: { src, alt },
+}) => {
   return (
     <div className={styles.wrapper}>
       <Modal
         isOpen={modalIsOpen}
+        onLoad={onImageLoad}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <button className={styles.closeBtn} onClick={closeModal}>
-          <IoClose size={24} />
-        </button>
-        <img className={styles.image} src={src} alt={alt} />
+        {!isLoading && (
+          <button className={styles.closeBtn} onClick={closeModal}>
+            <IoClose size={24} />
+          </button>
+        )}
+        <img
+          className={styles.image}
+          src={src}
+          alt={alt}
+          onLoad={onImageLoad}
+        />
       </Modal>
     </div>
   );

@@ -1,5 +1,23 @@
+/* Mobile-first: базова ширина */
 .container {
-  max-width: 1280px;
-  padding: 0 10px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tablet ≥ 768px */
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+/* Desktop ≥ 1280px */
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
 }

@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchData } from "./service/unsplashAPI";
+
 import SearchBar from "./components/SearchBar/SearchBar";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
-import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
+import InfiniteScrollTrigger from "./components/InfiniteScrollTrigger/InfiniteScrollTrigger";
 import "./App.css";
 
 function App() {
@@ -56,9 +57,9 @@ function App() {
     setError("");
   };
 
-  const handleLoadMore = () => {
-    setPage(page + 1);
-  };
+  const handleLoadMore = useCallback(() => {
+    setPage((prevPage) => prevPage + 1);
+  }, []);
 
   const handleOpenModal = (image) => {
     setModalImage(image);
@@ -76,7 +77,6 @@ function App() {
         <ImageGallery images={images} openModal={handleOpenModal} />
       )}
       {isLoading && <Loader />}
-      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
       {error && (
         <ErrorMessage
           message={
@@ -86,6 +86,13 @@ function App() {
         />
       )}
       {isEmpty && <NoResultsMessage query={query} />}
+      {hasMorePhotos && (
+        <InfiniteScrollTrigger
+          onIntersect={handleLoadMore}
+          hasMore={hasMorePhotos}
+          isLoading={isLoading}
+        />
+      )}
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={handleCloseModal}

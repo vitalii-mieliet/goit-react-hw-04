@@ -11,6 +11,7 @@ export async function fetchData(query = "", page = 1) {
   const params = {
     query,
     page,
+    per_page: 25,
   };
 
   const { data } = await unsplashAPI.get(`search/photos/`, {

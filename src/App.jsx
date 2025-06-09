@@ -24,13 +24,14 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalImage, setModalImage] = useState({});
   const [isModalImageLoading, setIsModalImageLoading] = useState(false);
+  const [wasLoadedOnce, setWasLoadedOnce] = useState(false);
 
   useEffect(() => {
     const { query, page } = searchParams;
     if (!query) return;
+    setWasLoadedOnce(true);
 
     const getPhotos = async () => {
-      console.log("Запит:", query, "Сторінка:", page);
       setError("");
       setIsLoading(true);
       setIsEmpty(false);
@@ -40,9 +41,6 @@ function App() {
           total,
           total_pages,
         } = await fetchData(query, page);
-        console.log("query:", query);
-        console.log("total:", total);
-        console.log("photos.length:", photos.length);
 
         if (total === 0) {
           setIsEmpty(true);
@@ -98,7 +96,13 @@ function App() {
         next={handleLoadMore}
         hasMore={hasMorePhotos}
         loader={isLoading && <SkeletonGallery />}
-        endMessage={<p style={{ textAlign: "center" }}>Усе переглянуто 🎉</p>}
+        endMessage={
+          wasLoadedOnce && !hasMorePhotos ? (
+            <p style={{ textAlign: "center" }}>
+              You have reached the end of the gallery!
+            </p>
+          ) : null
+        }
       >
         <ImageGallery images={images} openModal={handleOpenModal} />
       </InfiniteScroll>

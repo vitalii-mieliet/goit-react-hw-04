@@ -1,11 +1,13 @@
+import styles from "./ErrorMessage.module.css";
+
 const ErrorMessage = ({
   error,
   message = "Something went wrong. Please try again later.",
 }) => {
   return (
-    <div>
-      <p>{message}</p>
-      <p>{error}</p>
+    <div className={styles.wrapper}>
+      <p className={styles.message}>{message}</p>
+      {error && <p className={styles.details}>{error}</p>}
     </div>
   );
 };

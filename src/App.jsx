@@ -25,15 +25,20 @@ function App() {
   useEffect(() => {
     if (!query) return;
     const getPhotos = async () => {
+      setError("");
       setIsLoading(true);
+      setIsEmpty(false);
       try {
         const {
           results: photos,
           total,
           total_pages,
         } = await fetchData(query, page);
+        console.log("query:", query);
+        console.log("total:", total);
+        console.log("photos.length:", photos.length);
+
         if (total === 0) {
-          setIsEmpty(true);
           return;
         }
 
@@ -88,7 +93,7 @@ function App() {
           message={
             "Failed to load images. Please check your connection or try again later."
           }
-          error={error}
+          error={error?.message || "Unknown error"}
         />
       )}
       {isEmpty && <NoResultsMessage query={query} />}

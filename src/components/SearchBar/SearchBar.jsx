@@ -1,11 +1,12 @@
 import { IoSearchSharp } from "react-icons/io5";
-
+import { toast, ToastContainer } from "react-toastify";
 import css from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (formData) => {
     const value = Object.fromEntries(formData).searchField;
-    if (!value) return console.log("Enter some text");
+    if (!value.trim())
+      return toast.error("Oops! Looks like you forgot to type something.");
     onSubmit(value);
   };
 
@@ -24,6 +25,18 @@ const SearchBar = ({ onSubmit }) => {
           <IoSearchSharp className={css.icon} />
         </button>
       </form>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </header>
   );
 };

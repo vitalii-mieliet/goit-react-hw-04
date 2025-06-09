@@ -9,6 +9,7 @@ const InfiniteScrollTrigger = ({ onIntersect, isLoading, hasMore }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          console.log("⚡ Intersection Trigger");
           onIntersect();
         }
       },

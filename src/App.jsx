@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData } from "./service/unsplashAPI";
 
 import SearchBar from "./components/SearchBar/SearchBar";
@@ -7,12 +7,13 @@ import Loader from "./components/Loader/Loader";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageModal from "./components/ImageModal/ImageModal";
 import NoResultsMessage from "./components/NoResultsMessage/NoResultsMessage";
-import InfiniteScrollTrigger from "./components/InfiniteScrollTrigger/InfiniteScrollTrigger";
+
 import "./App.css";
+import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState("1");
+  const [searchParams, setSearchParams] = useState({ query: "", page: 1 });
+
   const [images, setImages] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [error, setError] = useState("");
@@ -23,8 +24,11 @@ function App() {
   const [isModalImageLoading, setIsModalImageLoading] = useState(false);
 
   useEffect(() => {
+    const { query, page } = searchParams;
     if (!query) return;
+
     const getPhotos = async () => {
+      console.log("Запит:", query, "Сторінка:", page);
       setError("");
       setIsLoading(true);
       setIsEmpty(false);
@@ -39,6 +43,7 @@ function App() {
         console.log("photos.length:", photos.length);
 
         if (total === 0) {
+          setIsEmpty(true);
           return;
         }
 
@@ -52,20 +57,22 @@ function App() {
     };
 
     getPhotos();
-  }, [query, page]);
+  }, [searchParams]);
 
   const handleFormSubmit = (query) => {
-    setQuery(query);
-    setPage(1);
+    setSearchParams({ query, page: 1 });
     setImages([]);
     setIsEmpty(false);
     setHasMorePhotos(false);
     setError("");
   };
 
-  const handleLoadMore = useCallback(() => {
-    setPage((prevPage) => prevPage + 1);
-  }, []);
+  const handleLoadMore = () => {
+    setSearchParams((prev) => ({
+      ...prev,
+      page: prev.page + 1,
+    }));
+  };
 
   const handleOpenModal = (image) => {
     setModalImage(image);
@@ -96,14 +103,8 @@ function App() {
           error={error?.message || "Unknown error"}
         />
       )}
-      {isEmpty && <NoResultsMessage query={query} />}
-      {hasMorePhotos && (
-        <InfiniteScrollTrigger
-          onIntersect={handleLoadMore}
-          hasMore={hasMorePhotos}
-          isLoading={isLoading}
-        />
-      )}
+      {isEmpty && <NoResultsMessage query={searchParams.query} />}
+      {hasMorePhotos && <LoadMoreBtn onClick={handleLoadMore} />}
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={handleCloseModal}

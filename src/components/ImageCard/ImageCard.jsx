@@ -1,5 +1,6 @@
 import { FaRegHeart } from "react-icons/fa6";
 import { FiExternalLink } from "react-icons/fi";
+import { FaInstagram } from "react-icons/fa";
 import styles from "./ImageCard.module.css";
 
 const ImageCard = ({
@@ -33,9 +34,13 @@ const ImageCard = ({
               target="_blank"
               rel="noreferrer"
               className={styles.link}
-              title="Open personal website"
+              title="Open personal site or Instagram"
             >
-              <FiExternalLink />
+              {user.social.portfolio_url.includes("instagram.com") ? (
+                <FaInstagram />
+              ) : (
+                <FiExternalLink />
+              )}
             </a>
           )}
         </div>

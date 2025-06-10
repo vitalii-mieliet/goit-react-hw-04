@@ -1,4 +1,5 @@
-# 📸 Image Search App — Unsplash React Gallery
+# 📸  PixScope — Image Search App
+
 
 This project is a part of the GoIT React course practice. It is a React-based image search application that fetches images from the Unsplash API. The application displays results in a responsive masonry grid, supports infinite scroll, and provides image preview with full-size download.
 

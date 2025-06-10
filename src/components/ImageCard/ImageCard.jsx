@@ -24,6 +24,7 @@ const ImageCard = ({
             rel="noreferrer"
             className={styles.username}
             title="View Unsplash profile"
+            onClick={(e) => e.stopPropagation()}
           >
             @{user.username}
           </a>
@@ -35,6 +36,7 @@ const ImageCard = ({
               rel="noreferrer"
               className={styles.link}
               title="Open personal site or Instagram"
+              onClick={(e) => e.stopPropagation()}
             >
               {user.social.portfolio_url.includes("instagram.com") ? (
                 <FaInstagram />

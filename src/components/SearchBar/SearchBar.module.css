@@ -1,6 +1,9 @@
 .header {
   background-color: #36057b;
   padding: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
 .form {

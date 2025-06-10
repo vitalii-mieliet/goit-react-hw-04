@@ -2,6 +2,7 @@
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
+  display: inline-block; /* додай це */
 }
 
 .image {
@@ -40,4 +41,48 @@
 
 .closeBtn:hover {
   background-color: #ffffff;
+}
+
+.footerOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  z-index: 2;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.desc {
+  flex: 1;
+  font-style: italic;
+  opacity: 0.9;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.actions a {
+  color: #aad;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.actions a:hover {
+  color: #fff;
 }

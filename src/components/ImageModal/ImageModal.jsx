@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import { IoClose } from "react-icons/io5";
+import { FiExternalLink, FiDownload } from "react-icons/fi";
 import styles from "./ImageModal.module.css";
 
 const customStyles = {
@@ -31,17 +32,17 @@ const ImageModal = ({
   modalIsOpen,
   onImageLoad,
   closeModal,
-  image: { src, alt },
+  image,
 }) => {
   return (
-    <div className={styles.wrapper}>
-      <Modal
-        isOpen={modalIsOpen}
-        onLoad={onImageLoad}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
+    <Modal
+      isOpen={modalIsOpen}
+      onLoad={onImageLoad}
+      onRequestClose={closeModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+    >
+      <div className={styles.wrapper}>
         {!isLoading && (
           <button className={styles.closeBtn} onClick={closeModal}>
             <IoClose size={24} />
@@ -49,12 +50,44 @@ const ImageModal = ({
         )}
         <img
           className={styles.image}
-          src={src}
-          alt={alt}
+          src={image.src}
+          alt={image.alt || image.description}
           onLoad={onImageLoad}
         />
-      </Modal>
-    </div>
+        <div className={styles.footerOverlay}>
+          <span className={styles.desc} title={image.description || image.alt}>
+            {image.description || image.alt}
+          </span>
+
+          <div className={styles.actions}>
+            {image.links?.html && (
+              <a
+                href={image.links.html}
+                target="_blank"
+                rel="noreferrer"
+                title="View on Unsplash"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FiExternalLink />
+              </a>
+            )}
+
+            {image.links?.download && (
+              <a
+                href={image.links.download}
+                download
+                target="_blank"
+                rel="noreferrer"
+                title="Download"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FiDownload />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </Modal>
   );
 };
 

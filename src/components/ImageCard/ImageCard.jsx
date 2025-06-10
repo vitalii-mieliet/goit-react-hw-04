@@ -4,7 +4,7 @@ import { FaInstagram } from "react-icons/fa";
 import styles from "./ImageCard.module.css";
 
 const ImageCard = ({
-  image: { urls, alt_description, likes, user },
+  image: { urls, alt_description, likes, user, description, links },
   openModal,
 }) => {
   return (
@@ -14,7 +14,14 @@ const ImageCard = ({
         src={urls.small}
         alt={alt_description}
         loading="lazy"
-        onClick={() => openModal({ src: urls.full, alt: alt_description })}
+        onClick={() =>
+          openModal({
+            src: urls.full,
+            alt: alt_description,
+            description,
+            links,
+          })
+        }
       />
       <div className={styles.overlay}>
         <div className={styles.left}>

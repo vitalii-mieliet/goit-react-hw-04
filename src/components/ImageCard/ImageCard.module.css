@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -16,4 +17,51 @@
   width: 100%;
   height: auto;
   display: block;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.username {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.username:hover {
+  color: #aad;
+}
+
+.link {
+  color: #aad;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }

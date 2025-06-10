@@ -1,12 +1,49 @@
-# React + Vite
+# 📸 Image Search App — Unsplash React Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a part of the GoIT React course practice. It is a React-based image search application that fetches images from the Unsplash API. The application displays results in a responsive masonry grid, supports infinite scroll, and provides image preview with full-size download.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔧 Technologies
 
-## Expanding the ESLint configuration
+- React (with hooks)
+- Vite — fast build tool
+- Axios — for HTTP requests
+- React Modal
+- React Toastify — notifications
+- React Masonry CSS — layout
+- React Infinite Scroll Component
+- React Spinners & Loading Skeleton
+- HTML5, CSS Modules
+- Prettier — code formatting
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ⚙️ Features
+
+- 🔍 Search for images by keyword
+- 🧱 Display images as masonry grid
+- 🔁 Infinite scroll (auto load next pages)
+- 🖼️ Modal viewer with download and description
+- ⚠️ Error handling with toast notifications
+- ⏳ Skeleton and spinner loading indicators
+- 📱 Fully responsive layout
+
+---
+
+## 🌐 Live Demo
+
+View the application here: 👉
+[GitHub Pages](https://goit-react-hw-04-nine-kohl.vercel.app)
+
+---
+
+## 📄 License
+
+This project is educational and does not have a commercial license.
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/vitalii-mieliet/unsplash-gallery.git
+cd unsplash-gallery
